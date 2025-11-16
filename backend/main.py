@@ -131,28 +131,6 @@ async def compare_texts(request: TextRequest):
         "levenshtein_similarity (Estrutura/Typos)": levenshtein_score
     }
 
-@app.post("/compare/visual-diff")
-async def compare_visual_diff(request: TextRequest):
-    """
-    Recebe dois textos e retorna um HTML que mostra
-    as diferenças visuais (estilo GitHub).
-    """
-    text1_lines = request.text1.splitlines()
-    text2_lines = request.text2.splitlines()
-    
-    # Cria o objeto que gera o HTML do diff
-    # `ndiff` faz um diff linha a linha
-    d = difflib.HtmlDiff(wrapcolumn=80) # wrapcolumn=80 para quebrar linha
-    
-    # Gera o HTML
-    html_diff = d.make_file(text1_lines, text2_lines, "Texto Original", "Texto para Comparar")
-    
-    # Em vez de retornar um JSON, retornamos o HTML direto
-    # (No frontend, você vai pegar esse HTML e colocar num <div>)
-    # Nota: Para ser mais "correto", deveríamos retornar HTMLResponse
-    # mas para simplicidade, vamos retornar o texto
-    return {"html_diff": html_diff}
-
 # Rota de "health check" para ver se a API está no ar
 @app.get("/")
 def read_root():
