@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'; // 👈 Reactive Forms
-import { JsonPipe, NgIf } from '@angular/common';
+import { DecimalPipe, JsonPipe, NgIf } from '@angular/common';
 import { ApiService } from './services/api.service'; // 👈 Nosso serviço
 
 // Tipagem da resposta para uso no componente
@@ -15,7 +15,7 @@ interface ComparisonResponse {
 @Component({
   selector: 'app-root',
   standalone: true, // Componente Standalone
-  imports: [RouterOutlet, ReactiveFormsModule, JsonPipe, NgIf], // Importa ReactiveFormsModule e comuns
+  imports: [RouterOutlet, ReactiveFormsModule, JsonPipe, NgIf, DecimalPipe], // Importa ReactiveFormsModule e comuns
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -59,7 +59,7 @@ export class App implements OnInit {
         error: (err) => {
           console.error('Erro ao chamar API:', err);
           // Mensagem de erro útil para o desenvolvedor/usuário
-          this.error.set(`Erro de comunicação com o backend. Verifique o CORS (http://localhost:4200 -> http://localhost:8080) e se o servidor está rodando. Mensagem detalhada no console.`);
+          this.error.set(`Erro de comunicação com o backend. Verifique o CORS (http://localhost:4200 -> http://localhost:8000) e se o servidor está rodando. Mensagem detalhada no console.`);
           this.loading.set(false);
         }
       });

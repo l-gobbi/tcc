@@ -21,7 +21,7 @@ interface ComparisonResponse {
 })
 export class ApiService {
   // A URL base do seu backend, como combinamos
-  private readonly apiUrl = 'http://localhost:8080';
+  private readonly apiUrl = 'http://localhost:8000';
 
   constructor(private http: HttpClient) { }
 

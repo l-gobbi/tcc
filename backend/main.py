@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
+from fastapi.middleware.cors import CORSMiddleware
 
 import difflib  # Importa a biblioteca nativa de Diff
 import Levenshtein # Importa a biblioteca Levenshtein
@@ -11,6 +12,19 @@ import Levenshtein # Importa a biblioteca Levenshtein
 # --- Modelos ---
 # 1. Inicializa o FastAPI
 app = FastAPI()
+
+origins = [
+    "http://localhost:4200",  # Permite o endereço padrão do Angular
+    "http://127.0.0.1:4200", # Outra forma de localhost
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # 2. Carrega o modelo BERT (sentence-transformer)
 #    Isso é feito uma vez quando a API inicia, não a cada requisição.
